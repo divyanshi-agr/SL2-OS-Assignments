@@ -170,16 +170,18 @@ done
     
 
 #OUTPUT:
-# divyanshi-agr@DESKTOP-Q7MB9VU:~/Shell_Programs$ bash a1.sh
+# divyanshi-agr@DESKTOP-Q7MB9VU:~/shellProgs/sl2Progs$ chmod +x a1.sh
+# divyanshi-agr@DESKTOP-Q7MB9VU:~/shellProgs/sl2Progs$ ./a1.sh
 # --------------------------- 
 #          MENU
 # --------------------------- 
 # 1. Create File
 # 2. Insert records in file   
 # 3. Display File
-# 4. Delete a record from File
-# 5. Update File
-# 6. Exit
+# 4. Search record
+# 5. Delete a record from File
+# 6. Update File
+# 7. Exit
 # --------------------------- 
 # Choose an option:
 # 1
@@ -193,102 +195,41 @@ done
 # 1. Create File
 # 2. Insert records in file   
 # 3. Display File
-# 4. Delete a record from File
-# 5. Update File
-# 6. Exit
+# 4. Search record
+# 5. Delete a record from File
+# 6. Update File
+# 7. Exit
 # --------------------------- 
 # Choose an option:
 # 2
 # Enter no. of records you want to insert:
 # 2
+# Enter record no.:
+# 1
 # Enter department name:
-
-# You need to enter dept name!
-# Enter department name:      
 # IT
 # Enter HOD of this department:
-
-# You need to enter HOD's name!
-# Enter HOD of this department:
-# a
+# anant
 # Enter no. of students in this dept:
-
-# You need to enter total students!  
-# Enter no. of students in this dept:
-# 123
+# 180
+# Enter record no.:
+# 2
 # Enter department name:
 # CS
 # Enter HOD of this department:
-# b
+# mina
 # Enter no. of students in this dept:
-
-# You need to enter total students!
-# Enter no. of students in this dept:
-# 565
+# 200
 # ---------------------------
 #          MENU
 # ---------------------------
 # 1. Create File
 # 2. Insert records in file
 # 3. Display File
-# 4. Delete a record from File
-# 5. Update File
-# 6. Exit
-# ---------------------------
-# Choose an option:
-# 3
-# The database is: 
-
-# DEPT            HOD             TOTAL STUDENTS
-# IT              a               123
-# CS              b               565
-# ---------------------------
-#          MENU
-# ---------------------------
-# 1. Create File
-# 2. Insert records in file
-# 3. Display File
-# 4. Delete a record from File
-# 5. Update File
-# 6. Exit
-# ---------------------------
-# Choose an option:
-# 2
-# Enter no. of records you want to insert:
-# 1
-# Enter department name:
-# ENTC
-# Enter HOD of this department:
-# c
-# Enter no. of students in this dept:
-# 322
-# ---------------------------
-#          MENU
-# ---------------------------
-# 1. Create File
-# 2. Insert records in file
-# 3. Display File
-# 4. Delete a record from File
-# 5. Update File
-# 6. Exit
-# ---------------------------
-# Choose an option:
-# 3
-# The database is: 
-
-# DEPT            HOD             TOTAL STUDENTS
-# IT              a               123
-# CS              b               565
-# ENTC            c               322
-# ---------------------------
-#          MENU
-# ---------------------------
-# 1. Create File
-# 2. Insert records in file
-# 3. Display File
-# 4. Delete a record from File
-# 5. Update File
-# 6. Exit
+# 4. Search record
+# 5. Delete a record from File
+# 6. Update File
+# 7. Exit
 # ---------------------------
 # Choose an option:
 # 1
@@ -302,10 +243,195 @@ done
 # 1. Create File
 # 2. Insert records in file
 # 3. Display File
-# 4. Delete a record from File
-# 5. Update File
-# 6. Exit
+# 4. Search record
+# 5. Delete a record from File
+# 6. Update File
+# 7. Exit
+# ---------------------------
+# Choose an option:
+# 3
+# The database is: 
+
+# SR.             DEPT            HOD             TOTAL STUDENTS
+# 1               IT              anant           180
+# 2               CS              mina            200
+# ---------------------------
+#          MENU
+# ---------------------------
+# 1. Create File
+# 2. Insert records in file
+# 3. Display File
+# 4. Search record
+# 5. Delete a record from File
+# 6. Update File
+# 7. Exit
+# ---------------------------
+# Choose an option:
+# 4
+# Enter the name to be searched:IT
+# Record found!
+# 1               IT              anant           180
+# ---------------------------
+#          MENU
+# ---------------------------
+# 1. Create File
+# 2. Insert records in file
+# 3. Display File
+# 4. Search record
+# 5. Delete a record from File
+# 6. Update File
+# 7. Exit
+# ---------------------------
+# Choose an option:
+# 4
+# Enter the name to be searched:mina
+# Record found!
+# 2               CS              mina            200
+# ---------------------------
+#          MENU
+# ---------------------------
+# 1. Create File
+# 2. Insert records in file
+# 3. Display File
+# 4. Search record
+# 5. Delete a record from File
+# 6. Update File
+# 7. Exit
+# ---------------------------
+# Choose an option:
+# 4
+# Enter the name to be searched:entc
+# Record not found!
+# ---------------------------
+#          MENU
+# ---------------------------
+# 1. Create File
+# 2. Insert records in file
+# 3. Display File
+# 4. Search record
+# 5. Delete a record from File
+# 6. Update File
+# 7. Exit
+# ---------------------------
+# Choose an option:
+# 5
+# Enter department to be deleted:CS
+
+# Record deleted successfully!
+# ---------------------------
+#          MENU
+# ---------------------------
+# 1. Create File
+# 2. Insert records in file
+# 3. Display File
+# 4. Search record
+# 5. Delete a record from File
+# 6. Update File
+# 7. Exit
+# ---------------------------
+# Choose an option:
+# 3
+# The database is: 
+
+# SR.             DEPT            HOD             TOTAL STUDENTS
+# 1               IT              anant           180
+# ---------------------------
+#          MENU
+# ---------------------------
+# 1. Create File
+# 2. Insert records in file
+# 3. Display File
+# 4. Search record
+# 5. Delete a record from File
+# 6. Update File
+# 7. Exit
 # ---------------------------
 # Choose an option:
 # 6
-# divyanshi-agr@DESKTOP-Q7MB9VU:~/Shell_Programs$ 
+# Choose which attribute you want to update:
+# 1.Department name
+# 2.HOD name
+# 3.Total students
+# 1
+# ./a1.sh: 133: [: missing ]
+# ./a1.sh: 133: 1: not found
+# Enter department name of record you wanna update : IT 
+# Enter new department name : ENTC   
+# Record updated successfully!
+# ---------------------------
+#          MENU
+# ---------------------------
+# 1. Create File
+# 2. Insert records in file
+# 3. Display File
+# 4. Search record
+# 5. Delete a record from File
+# 6. Update File
+# 7. Exit
+# ---------------------------
+# Choose an option:
+# 6
+# Choose which attribute you want to update:
+# 1.Department name
+# 2.HOD name
+# 3.Total students
+# 2
+# ./a1.sh: 133: [: missing ]
+# ./a1.sh: 133: 2: not found
+# Enter HOD name of record you wanna update : anant
+# Enter new HOD name : roy
+# Record updated successfully!
+# ---------------------------
+#          MENU
+# ---------------------------
+# 1. Create File
+# 2. Insert records in file
+# 3. Display File
+# 4. Search record
+# 5. Delete a record from File
+# 6. Update File
+# 7. Exit
+# ---------------------------
+# Choose an option:
+# 6
+# Choose which attribute you want to update:
+# 1.Department name
+# 2.HOD name
+# 3.Total students
+# 3
+# ./a1.sh: 133: [: missing ]
+# ./a1.sh: 133: 3: not found
+# Enter total students of record you wanna update : 180
+# Enter new total students : 270
+# Record updated successfully!
+# ---------------------------
+#          MENU
+# ---------------------------
+# 1. Create File
+# 2. Insert records in file
+# 3. Display File
+# 4. Search record
+# 5. Delete a record from File
+# 6. Update File
+# 7. Exit
+# ---------------------------
+# Choose an option:
+# 3
+# The database is: 
+
+# SR.             DEPT            HOD             TOTAL STUDENTS
+# 1               ENTC            roy             270
+# ---------------------------
+#          MENU
+# ---------------------------
+# 1. Create File
+# 2. Insert records in file
+# 3. Display File
+# 4. Search record
+# 5. Delete a record from File
+# 6. Update File
+# 7. Exit
+# ---------------------------
+# Choose an option:
+# 7
+# divyanshi-agr@DESKTOP-Q7MB9VU:~/shellProgs/sl2Progs$ 
