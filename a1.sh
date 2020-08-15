@@ -21,6 +21,7 @@ do
 
     case $option in
 
+        #Creating a database
         1 )   echo "Enter name of file to be created: "
               read filename
               len=${#filename}
@@ -39,7 +40,7 @@ do
               fi
         ;;
 
-
+        #Inserting records in the database
         2 )   echo "Enter no. of records you want to insert:"
               read recs
               
@@ -99,7 +100,7 @@ do
               done          
         ;;
 
-
+        #Displaying the database
         3 )   if [ -f $filename ]
              then 
                     echo "The database is: \n"
@@ -109,6 +110,7 @@ do
              fi          
         ;;
 
+        #Searching for a record in database
         4 )   read -p "Enter the name to be searched:" search_name
               lol="$(grep -i "$search_name" $filename)"
               if [ "$lol" ]
@@ -119,11 +121,13 @@ do
               fi       
         ;;
 
+        #Deleteing a record in database
         5 )   read -p "Enter department to be deleted:" delete_dept
               sed -i "/$delete_dept/d" $filename
               echo "\nRecord deleted successfully!"       
         ;;
 
+        #Modifying a record in database
         6 )   echo "Choose which attribute you want to update:"
               echo "1.Department name"
               echo "2.HOD name"
@@ -160,7 +164,10 @@ do
               fi
         ;;
         
+        #Exitting the program
         7 )   exit 0 ;;
+
+        #Default option
         * )   echo "Wrong option!" ;;
 
     esac
