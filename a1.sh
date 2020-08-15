@@ -28,14 +28,14 @@ do
               if [ $len -gt 0 ]
               then  
                     if [ -f $filename ]
-                    then echo -e "File already exists!\n"
+                    then echo "File already exists!\n"
                     else
                         touch $filename
-                        echo -e "SR.\t\tDEPT\t\tHOD\t\tTOTAL STUDENTS" >> $filename
-                        echo -e "File successfully created!\n" 
+                        echo "SR.\t\tDEPT\t\tHOD\t\tTOTAL STUDENTS" >> $filename
+                        echo "File successfully created!\n" 
                     fi
                else 
-                    echo -e "File name can't be empty!\n"
+                    echo "File name can't be empty!\n"
               fi
         ;;
 
@@ -94,7 +94,7 @@ do
                         fi
                     done
 
-                    echo -e "$srno\t\t$dept\t\t$hod\t\t$stud" >> $filename 
+                    echo "$srno\t\t$dept\t\t$hod\t\t$stud" >> $filename 
                     recs=$((recs-1))      
               done          
         ;;
@@ -102,10 +102,10 @@ do
 
         3 )   if [ -f $filename ]
              then 
-                    echo -e "The database is: \n" 
+                    echo "The database is: \n"
                     cat $filename 
              else
-                    echo -e "Database doesn't exist!!\n"
+                    echo "Database doesn't exist!!\n"
              fi          
         ;;
 
@@ -113,16 +113,51 @@ do
               lol="$(grep -i "$search_name" $filename)"
               if [ "$lol" ]
               then
-                 echo "Word  found!"
+                 echo "Record found!"
                  echo "$lol"
-              else echo "Word not found!"
+              else echo "Record not found!"
               fi       
         ;;
 
         5 )   read -p "Enter department to be deleted:" delete_dept
-              grep -i "$delete_dept" $filename > temp
-              mv temp $filename
+              sed -i "/$delete_dept/d" $filename
               echo "\nRecord deleted successfully!"       
+        ;;
+
+        6 )   echo "Choose which attribute you want to update:"
+              echo "1.Department name"
+              echo "2.HOD name"
+              echo "3.Total students"
+              read choice
+
+              if [ $choice -le 0 || $choice -gt 4 ]
+              then echo "Please enter valid option!"
+              else
+                    case $choice in
+                    1 ) read -p "Enter department name of record you wanna update : " dept_name
+                        read -p "Enter new department name : " newdept
+                        sed -i "s/$dept_name/$newdept/g" $filename
+                        echo "Record updated successfully!"
+
+                    ;;
+
+                    2 ) read -p "Enter HOD name of record you wanna update : " hod_name
+                        read -p "Enter new HOD name : " newhod
+                        sed -i "s/$hod_name/$newhod/g" $filename
+                        echo "Record updated successfully!"
+
+                    ;;
+
+                    3 ) read -p "Enter total students of record you wanna update : " tot_studs
+                        read -p "Enter new total students : " newstuds
+                        sed -i "s/$tot_studs/$newstuds/g" $filename
+                        echo "Record updated successfully!"
+
+                    ;;
+
+                    esac
+
+              fi
         ;;
         
         7 )   exit 0 ;;
