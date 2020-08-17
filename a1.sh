@@ -108,20 +108,19 @@ display_file () {
  #Deleteing a record in database
  delete_file () {
     read -p "Enter department to be deleted:" delete_dept
-    awk 'BEGIN {
+    sed -i "/$delete_dept/d" $filename
+    echo "\nRecord deleted successfully!"
+ }
+
+
+  awk 'BEGIN {
             if($2 == "$delete_dept")
             {
                 print "Record exists in the database!";
-                sed -i "/$delete_dept/d" $filename
+                
 
             }
-            
-
-
-        }'
-    
-    echo "\nRecord deleted successfully!"
- }
+        }'    
 
  #Modifying a record in database
  modify_file () {
@@ -137,8 +136,20 @@ display_file () {
         case $choice in
         1 ) read -p "Enter department name of record you wanna update : " dept_name
             read -p "Enter new department name : " newdept
-            sed -i "s/$dept_name/$newdept/g" $filename
-            echo "Record updated successfully!"
+            awk 'BEGIN {
+            if($2 == "DEPT")
+            {
+                gsub(/"$dept_name"/,"$newdept",$2); 
+                print "Record updated successfully!"               
+
+            }
+            else {
+                print "Record does not exist!";
+            }
+        }'
+            
+            # sed -i "s/$dept_name/$newdept/g" $filename
+            # echo "Record updated successfully!"
 
         ;;
 
