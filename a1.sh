@@ -87,7 +87,7 @@ display_file () {
     if [ -f $filename ]
     then 
         echo "The database is: \n"
-        cat $filename 
+        awk '{print}' $filename 
     else
         echo "Database doesn't exist!!\n"
     fi 
@@ -96,11 +96,11 @@ display_file () {
  #Searching for a record in database
  search_file () {
     read -p "Enter the name to be searched:" search_name
-    lol="$(grep -i "$search_name" $filename)"
-    if [ "$lol" ]
+    abc="$(grep -i "$search_name" $filename)"
+    if [ "$abc" ]
     then
         echo "Record found!"
-        echo "$lol"
+        echo "$abc"
     else echo "Record not found!"
     fi  
  }
@@ -108,7 +108,18 @@ display_file () {
  #Deleteing a record in database
  delete_file () {
     read -p "Enter department to be deleted:" delete_dept
-    sed -i "/$delete_dept/d" $filename
+    awk 'BEGIN {
+            if($2 == "$delete_dept")
+            {
+                print "Record exists in the database!";
+                sed -i "/$delete_dept/d" $filename
+
+            }
+            
+
+
+        }'
+    
     echo "\nRecord deleted successfully!"
  }
 
