@@ -3,27 +3,27 @@ filename=0
 
 #Creating a database
 create_file () {
-    echo "Enter name of file to be created: "
+    awk 'BEGIN { print "Enter name of file to be created: "; }'
     read filename
     len=${#filename}
 
     if [ $len -gt 0 ]
     then  
         if [ -f $filename ]
-        then echo "File already exists!\n"
+        then awk 'BEGIN { print "File already exists!"; }'
         else
             touch $filename
             echo "SR.\t\tDEPT\t\tHOD\t\tTOTAL STUDENTS" >> $filename
-            echo "File successfully created!\n" 
+            awk 'BEGIN { print "File successfully created!"; }' 
         fi
     else 
-        echo "File name can't be empty!\n"
+        awk 'BEGIN { print "File name cant be empty"; }'
     fi
 }
 
 #Inserting records in the database
 insert_file () {
-    echo "Enter no. of records you want to insert:"
+    awk 'BEGIN { print "Enter no. of records you want to insert: "; }'
     read recs
     
     while [ $recs -gt 0 ]
@@ -86,7 +86,7 @@ insert_file () {
 display_file () {
     if [ -f $filename ]
     then 
-        echo "The database is: \n"
+        awk 'BEGIN { print "The database is: "; }'
         awk '{print}' $filename 
     else
         echo "Database doesn't exist!!\n"
@@ -96,31 +96,40 @@ display_file () {
  #Searching for a record in database
  search_file () {
     read -p "Enter the name to be searched:" search_name
-    abc="$(grep -i "$search_name" $filename)"
-    if [ "$abc" ]
-    then
-        echo "Record found!"
-        echo "$abc"
-    else echo "Record not found!"
-    fi  
+    awk '/"$search_name"/' $filename
+
+    # abc="$(grep -i "$search_name" $filename)"
+    # if [ "$abc" ]
+    # then
+    #     echo "Record found!"
+    #     echo "$abc"
+    # else echo "Record not found!"
+    # fi  
  }
 
  #Deleteing a record in database
  delete_file () {
-    read -p "Enter department to be deleted:" delete_dept
-    sed -i "/$delete_dept/d" $filename
-    echo "\nRecord deleted successfully!"
+    read -p "Enter department to be deleted:" delete_dept 
+    dummy=0
+    
+    awk 'BEGIN { /"$search_name"/ 
+    dummy=1;}' $filename
+    # awk '/"$search_name"/' $filename
+
+#   awk 'BEGIN {
+#             if($2 == "$delete_dept")
+#             {
+#                 dummy=1
+#             }
+#         }'   
+
+        if [ dummy -eq 1 ]
+        then sed -i "/$delete_dept/d" $filename
+        echo "\nRecord deleted successfully!"
+        else echo "\nRecord does not exist!"
+        fi
+
  }
-
-
-  awk 'BEGIN {
-            if($2 == "$delete_dept")
-            {
-                print "Record exists in the database!";
-                
-
-            }
-        }'    
 
  #Modifying a record in database
  modify_file () {
