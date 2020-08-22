@@ -96,40 +96,21 @@ display_file () {
  #Searching for a record in database
  search_file () {
     read -p "Enter the name to be searched:" search_name
-    awk '/"$search_name"/' $filename
 
-    # abc="$(grep -i "$search_name" $filename)"
-    # if [ "$abc" ]
-    # then
-    #     echo "Record found!"
-    #     echo "$abc"
-    # else echo "Record not found!"
-    # fi  
+    abc="$(grep -i "$search_name" $filename)"
+    if [ "$abc" ]
+    then
+        echo "Record found!"
+        echo "$abc"
+    else echo "Record not found!"
+    fi  
  }
 
  #Deleteing a record in database
  delete_file () {
     read -p "Enter department to be deleted:" delete_dept 
-    dummy=0
-    
-    # awk 'BEGIN { /"$search_name"/ 
-    # dummy=1;}' $filename
-
-    # awk '/"$search_name"/' $filename
-
-#   awk 'BEGIN {
-#             if($2 == "$delete_dept")
-#             {
-#                 dummy=1
-#             }
-#         }'   
-
-        if [ dummy -eq 1 ]
-        then sed -i "/$delete_dept/d" $filename
-        echo "\nRecord deleted successfully!"
-        else echo "\nRecord does not exist!"
-        fi
-
+    sed -i "/$delete_dept/d" $filename
+    echo "\nRecord deleted successfully!"
  }
 
  #Modifying a record in database
@@ -146,20 +127,8 @@ display_file () {
         case $choice in
         1 ) read -p "Enter department name of record you wanna update : " dept_name
             read -p "Enter new department name : " newdept
-            awk 'BEGIN {
-            if($2 == "DEPT")
-            {
-                gsub(/"$dept_name"/,"$newdept",$2); 
-                print "Record updated successfully!"               
-
-            }
-            else {
-                print "Record does not exist!";
-            }
-        }'
-            
-            # sed -i "s/$dept_name/$newdept/g" $filename
-            # echo "Record updated successfully!"
+            sed -i "s/$dept_name/$newdept/g" $filename
+            echo "Record updated successfully!"
 
         ;;
 

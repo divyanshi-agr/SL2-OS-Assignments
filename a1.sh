@@ -31,8 +31,7 @@ insert_file () {
 
         while (true)
         do
-            echo "Enter record no.:"
-            read srno
+            read -p "Enter record no.:" srno
             len_srno=${#srno}
             if [ $len_srno -gt 0 ]
             then break 1
@@ -43,8 +42,7 @@ insert_file () {
 
         while (true)
         do
-            echo "Enter department name:"
-            read dept
+            read -p "Enter department name:" dept
             len_dept=${#dept}
             if [ $len_dept -gt 0 ]
             then break 1
@@ -55,8 +53,7 @@ insert_file () {
 
         while (true)
         do
-            echo "Enter HOD of this department:"
-            read hod
+            read -p "Enter HOD of this department:" hod
             len_hod=${#hod}
             if [ $len_hod -gt 0 ]
             then break 1
@@ -67,8 +64,7 @@ insert_file () {
 
         while (true)
         do
-            echo "Enter no. of students in this dept:"
-            read stud
+            read -p "Enter no. of students in this dept:" stud
             len_stud=${#stud}
             if [ $len_stud -gt 0 ]
             then break 1
@@ -89,40 +85,36 @@ display_file () {
         awk 'BEGIN { print "The database is: "; }'
         awk '{print}' $filename 
     else
-        echo "Database doesn't exist!!\n"
+        awk 'BEGIN { print "Database does not exist!!\n"; }'
     fi 
 }
 
  #Searching for a record in database
  search_file () {
     read -p "Enter the name to be searched:" search_name
-    awk '/"$search_name"/' $filename
+    # awk '/"$search_name"/' $filename
 
-    # abc="$(grep -i "$search_name" $filename)"
-    # if [ "$abc" ]
-    # then
-    #     echo "Record found!"
-    #     echo "$abc"
-    # else echo "Record not found!"
-    # fi  
+    abc="$(grep -i "$search_name" $filename)"
+    if [ "$abc" ]
+    then
+        echo "Record found!"
+        echo "$abc"
+    else echo "Record not found!"
+    fi  
  }
 
  #Deleteing a record in database
  delete_file () {
     read -p "Enter department to be deleted:" delete_dept 
     dummy=0
-    
-    # awk 'BEGIN { /"$search_name"/ 
-    # dummy=1;}' $filename
 
-    # awk '/"$search_name"/' $filename
-
-#   awk 'BEGIN {
-#             if($2 == "$delete_dept")
-#             {
-#                 dummy=1
-#             }
-#         }'   
+  #Checking if the dept entered exists in the SECOND column (Department) or not.
+  awk 'BEGIN {
+            if($2 == "$delete_dept")   
+            {
+                dummy=1
+            }
+        }'   
 
         if [ dummy -eq 1 ]
         then sed -i "/$delete_dept/d" $filename
@@ -146,10 +138,30 @@ display_file () {
         case $choice in
         1 ) read -p "Enter department name of record you wanna update : " dept_name
             read -p "Enter new department name : " newdept
+
+            #Checking for the department in the database and then modifying it using gsub function of awk.
             awk 'BEGIN {
-            if($2 == "DEPT")
+            if($2 == "$dept_name")
             {
                 gsub(/"$dept_name"/,"$newdept",$2); 
+                print "Record updated successfully!";            
+
+            }
+            else {
+                print "Record does not exist!";
+            }
+        }'
+
+        ;;
+
+        2 ) read -p "Enter HOD name of record you wanna update : " hod_name
+            read -p "Enter new HOD name : " newhod
+
+            #Checking for the hod in the database and then modifying it using gsub function of awk.
+            awk 'BEGIN {
+            if($3 == "$hod_name")
+            {
+                gsub(/"$hod_name"/,"$newhod",$3); 
                 print "Record updated successfully!"               
 
             }
@@ -157,23 +169,24 @@ display_file () {
                 print "Record does not exist!";
             }
         }'
-            
-            # sed -i "s/$dept_name/$newdept/g" $filename
-            # echo "Record updated successfully!"
-
-        ;;
-
-        2 ) read -p "Enter HOD name of record you wanna update : " hod_name
-            read -p "Enter new HOD name : " newhod
-            sed -i "s/$hod_name/$newhod/g" $filename
-            echo "Record updated successfully!"
 
         ;;
 
         3 ) read -p "Enter total students of record you wanna update : " tot_studs
             read -p "Enter new total students : " newstuds
-            sed -i "s/$tot_studs/$newstuds/g" $filename
-            echo "Record updated successfully!"
+
+            #Checking for the total students in the database and then modifying it using gsub function of awk.
+            awk 'BEGIN {
+            if($4 == "$tot_studs")
+            {
+                gsub(/"$tot_studs"/,"$newstuds",$3); 
+                print "Record updated successfully!"               
+
+            }
+            else {
+                print "Record does not exist!";
+            }
+        }'
 
         ;;
 
