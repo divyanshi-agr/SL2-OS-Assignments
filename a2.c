@@ -7,11 +7,10 @@ int main()
     printf("PID of a2.c is: %d\n", getpid());
     printf("PID of parent is: %d\n", getppid());
 
-    
-    // fork();
+    fork();
 
-    // printf("PID of newc is: %d\n", getpid());
-    // printf("PID of parent of new is: %d\n", getppid());
+    printf("PID of newc is: %d\n", getpid());
+    printf("PID of parent of new is: %d\n", getppid());
 
     return 0;
 }

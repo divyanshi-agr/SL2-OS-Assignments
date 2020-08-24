@@ -20,12 +20,12 @@ int main()
 
     case 0:
         msg = "This is the child";
-        n = 5;
+        n = 3;
         break;
 
     default:
         msg = "This is the parent";
-        n = 3;
+        n = 5;
         break;
     }
 
