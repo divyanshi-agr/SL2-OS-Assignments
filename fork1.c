@@ -92,7 +92,7 @@ int main()
     printf("1.Orphan\t2.Zombie\n");
     scanf("%d", &option);
 
-    printf("Fork program starting...\n");
+    printf("Fork program starting...\n\n");
     pid = fork();
 
     switch (pid)
@@ -104,32 +104,37 @@ int main()
     case 0:
         printf("IN CHILD: \n\n");
 
+        //Printing unsorted array
         printf("The numbers before sorting are:\n");
         for (i = 0; i < max; i++)
             printf("%d\n", a[i]);
 
+        //Sorting in Child using Merge Sort
         merge_sort(0, max, a, b);
 
+        //Printing the sorted array
         printf("The sorted array is: \n");
         for (i = 0; i < max; i++)
         {
             printf("%d\n", a[i]);
         }
+        printf("\n");
 
+        //ORPHAN --> in child
         if (option == 1)
         {
             printf("My PID is: %d\n", getpid());
             printf("PID of my parent is: %d\n", getppid());
-            printf("Child going to sleep!...\n");
+            printf("Child going to sleep!...\n\n");
             sleep(10);
 
             printf("Child is awake now!\n");
             printf("My PID is: %d\n", getpid());
-            printf("PID of my parent is: %d\n", getppid());
+            printf("PID of my parent is: %d\n\n", getppid());
         }
 
         system("ps -elf | grep s");
-        printf("BYE CHILD!\n");
+        printf("\nBYE CHILD!\n\n");
 
         break;
 
@@ -137,33 +142,37 @@ int main()
         system("wait");
         printf("IN PARENT: \n\n");
 
+        //Printing unsorted array
         printf("The numbers before sorting are:\n");
         for (i = 0; i < max; i++)
             printf("%d\n", a[i]);
 
-        //Sorting in parent using Quick Sort.
+        //Sorting in Parent using Quick Sort
         quick_sort(a, 0, max - 1);
 
+        //Printing the sorted numbers
         printf("The sorted array is: \n");
         for (i = 0; i < max; i++)
         {
             printf("%d\n", a[i]);
         }
+        printf("\n");
 
+        //ZOMBIE --> in parent
         if (option == 2)
         {
             printf("My PID is: %d\n", getpid());
             printf("PID of my parent is: %d\n", getppid());
-            printf("Parent is going to sleep...\n");
+            printf("Parent is going to sleep...\n\n");
             sleep(10);
 
             printf("Parent is awake now...\n");
             printf("My PID is: %d\n", getpid());
-            printf("PID of my parent is: %d\n", getppid());
+            printf("PID of my parent is: %d\n\n", getppid());
         }
 
         system("ps -elf | grep s");
-        printf("BYE PARENT!\n");
+        printf("\nBYE PARENT!\n\n");
 
         break;
     }
