@@ -43,21 +43,35 @@ void merge_sort(int low, int high, int a[max], int b[max])
     }
 }
 
-void selection_sort(int count, int a[max])
+void quick_sort(int a[max], int first, int last)
 {
-    int i, j, temp;
+    int i, j, pivot, temp;
 
-    for (i = 0; i < count; i++)
+    if (first < last)
     {
-        for (j = i + 1; j < count; j++)
+        pivot = first;
+        i = first;
+        j = last;
+
+        while (i < j)
         {
-            if (a[i] > a[j])
+            while (a[i] <= a[pivot] && i < last)
+                i++;
+            while (a[j] > a[pivot])
+                j--;
+            if (i < j)
             {
                 temp = a[i];
                 a[i] = a[j];
                 a[j] = temp;
             }
         }
+
+        temp = a[pivot];
+        a[pivot] = a[j];
+        a[j] = temp;
+        quick_sort(a, first, j - 1);
+        quick_sort(a, j + 1, last);
     }
 }
 
@@ -67,7 +81,7 @@ int main()
     int a[5], b[5], i, temp, j;
     int option;
 
-    //Accepting input of numbers:
+    //Accepting input of unsorted numbers:
     printf("Enter any 5 numbers:\n");
     for (i = 0; i < 5; i++)
         scanf("%d", &a[i]);
@@ -127,8 +141,8 @@ int main()
         for (i = 0; i < max; i++)
             printf("%d\n", a[i]);
 
-        //Sorting in parent using Selection sort.
-        selection_sort(max, a);
+        //Sorting in parent using Quick Sort.
+        quick_sort(a, 0, max - 1);
 
         printf("The sorted array is: \n");
         for (i = 0; i < max; i++)
