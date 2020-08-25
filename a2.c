@@ -9,7 +9,7 @@ int main()
 
     fork();
 
-    printf("PID of newc is: %d\n", getpid());
+    printf("PID of new is: %d\n", getpid());
     printf("PID of parent of new is: %d\n", getppid());
 
     return 0;

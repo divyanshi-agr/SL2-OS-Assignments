@@ -67,24 +67,36 @@ int main()
 
     case 0:
         printf("IN CHILD: \n\n");
+
+        printf("My PID is: %d\n", getpid());
+        printf("PID of my parent is: %d\n", getppid());
+
         printf("The numbers before sorting are:\n");
         for (i = 0; i < max; i++)
             printf("%d\n", a[i]);
 
         sort(0, max, a, b);
+        // system("ps -elf | grep <defunct>");
+
         msg = "BYE CHILD!\n\n";
-        n = 2;
+        n = 1;
         break;
 
     default:
+        system("wait");
         printf("IN PARENT: \n\n");
+
+        printf("My PID is: %d\n", getpid());
+        printf("PID of my parent is: %d\n", getppid());
+
         printf("The numbers before sorting are:\n");
         for (i = 0; i < max; i++)
             printf("%d\n", a[i]);
 
         sort(0, max, a, b);
+
         msg = "BYE PARENT!\n\n";
-        n = 1;
+        n = 3;
         break;
     }
 
