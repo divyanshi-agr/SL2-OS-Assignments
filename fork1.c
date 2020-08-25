@@ -26,15 +26,15 @@ void merging(int low, int mid, int high, int a[max], int b[max])
         a[i] = b[i];
 }
 
-void sort(int low, int high, int a[max], int b[max])
+void merge_sort(int low, int high, int a[max], int b[max])
 {
     int mid;
 
     if (low < high)
     {
         mid = (low + high) / 2;
-        sort(low, mid, a, b);
-        sort(mid + 1, high, a, b);
+        merge_sort(low, mid, a, b);
+        merge_sort(mid + 1, high, a, b);
         merging(low, mid, high, a, b);
     }
     else
@@ -43,11 +43,29 @@ void sort(int low, int high, int a[max], int b[max])
     }
 }
 
+void selection_sort(int count, int a[max])
+{
+    int i, j, temp;
+
+    for (i = 0; i < count; i++)
+    {
+        for (j = i + 1; j < count; j++)
+        {
+            if (a[i] > a[j])
+            {
+                temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+            }
+        }
+    }
+}
+
 int main()
 {
     pid_t pid;
-    int a[5], b[5], i, n;
-    char *msg;
+    int a[5], b[5], i, temp, j;
+    int option;
 
     //Accepting input of numbers:
     printf("Enter any 5 numbers:\n");
@@ -55,6 +73,10 @@ int main()
         scanf("%d", &a[i]);
 
     printf("\n");
+
+    printf("Choose:\n");
+    printf("1.Orphan\t2.Zombie\n");
+    scanf("%d", &option);
 
     printf("Fork program starting...\n");
     pid = fork();
@@ -68,48 +90,68 @@ int main()
     case 0:
         printf("IN CHILD: \n\n");
 
-        printf("My PID is: %d\n", getpid());
-        printf("PID of my parent is: %d\n", getppid());
-
         printf("The numbers before sorting are:\n");
         for (i = 0; i < max; i++)
             printf("%d\n", a[i]);
 
-        sort(0, max, a, b);
-        // system("ps -elf | grep <defunct>");
+        merge_sort(0, max, a, b);
 
-        msg = "BYE CHILD!\n\n";
-        n = 1;
-        break;
-
-    default:
-        system("wait");
-        printf("IN PARENT: \n\n");
-
-        printf("My PID is: %d\n", getpid());
-        printf("PID of my parent is: %d\n", getppid());
-
-        printf("The numbers before sorting are:\n");
-        for (i = 0; i < max; i++)
-            printf("%d\n", a[i]);
-
-        sort(0, max, a, b);
-
-        msg = "BYE PARENT!\n\n";
-        n = 3;
-        break;
-    }
-
-    for (; n > 0; n--)
-    {
         printf("The sorted array is: \n");
         for (i = 0; i < max; i++)
         {
             printf("%d\n", a[i]);
         }
 
-        puts(msg);
-        sleep(1);
+        if (option == 1)
+        {
+            printf("My PID is: %d\n", getpid());
+            printf("PID of my parent is: %d\n", getppid());
+            printf("Child going to sleep!...\n");
+            sleep(10);
+
+            printf("Child is awake now!\n");
+            printf("My PID is: %d\n", getpid());
+            printf("PID of my parent is: %d\n", getppid());
+        }
+
+        system("ps -elf | grep s");
+        printf("BYE CHILD!\n");
+
+        break;
+
+    default:
+        system("wait");
+        printf("IN PARENT: \n\n");
+
+        printf("The numbers before sorting are:\n");
+        for (i = 0; i < max; i++)
+            printf("%d\n", a[i]);
+
+        //Sorting in parent using Selection sort.
+        selection_sort(max, a);
+
+        printf("The sorted array is: \n");
+        for (i = 0; i < max; i++)
+        {
+            printf("%d\n", a[i]);
+        }
+
+        if (option == 2)
+        {
+            printf("My PID is: %d\n", getpid());
+            printf("PID of my parent is: %d\n", getppid());
+            printf("Parent is going to sleep...\n");
+            sleep(10);
+
+            printf("Parent is awake now...\n");
+            printf("My PID is: %d\n", getpid());
+            printf("PID of my parent is: %d\n", getppid());
+        }
+
+        system("ps -elf | grep s");
+        printf("BYE PARENT!\n");
+
+        break;
     }
 
     exit(0);
