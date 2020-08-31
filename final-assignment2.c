@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #define max 5
 
+//Merge sort algorithm
 void merging(int low, int mid, int high, int a[max], int b[max])
 {
     int l1, l2, i;
@@ -43,6 +44,7 @@ void merge_sort(int low, int high, int a[max], int b[max])
     }
 }
 
+//Quick sort algorithm
 void quick_sort(int a[max], int first, int last)
 {
     int i, j, pivot, temp;
@@ -88,6 +90,7 @@ int main()
 
     printf("\n");
 
+    //Orphan and Zombie menu
     printf("Choose:\n");
     printf("1.Orphan\t2.Zombie\n");
     scanf("%d", &option);
@@ -125,6 +128,7 @@ int main()
         {
             printf("My PID is: %d\n", getpid());
             printf("PID of my parent is: %d\n", getppid());
+
             printf("Child going to sleep!...\n\n");
             sleep(10);
 
@@ -163,6 +167,7 @@ int main()
         {
             printf("My PID is: %d\n", getpid());
             printf("PID of my parent is: %d\n", getppid());
+
             printf("Parent is going to sleep...\n\n");
             sleep(10);
 
