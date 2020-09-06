@@ -44,6 +44,7 @@ int main()
     pid_t pid;
     int a[5], b[5], i, temp, j;
     int option;
+    char buffer[200];
 
     //Accepting input of unsorted numbers:
     printf("Enter any 5 numbers:\n");
@@ -81,13 +82,20 @@ int main()
 
         //Recieved sorted array
         //call exec to search using binary program
+        for (i = 0; i < 5; i++)
+        {
+            sprintf(buffer, "%d", a[i]);
+        }
+
+        char *args[] = {"buffer[0]", "buffer[1]", "buffer[2]", "buffer[3]", "buffer[4]", NULL};
+        execv("./b", args);
 
         break;
     default:
         system("wait");
         printf("IN PARENT\n");
 
-        sleep(5);
+        sleep(10);
 
         break;
     }

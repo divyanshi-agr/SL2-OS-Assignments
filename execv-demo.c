@@ -6,7 +6,7 @@ int main()
     printf("I am in execv-demo.c...\n");
     printf("PID of execv-demo.c is: %d\n", getpid());
 
-    char *args[] = {"./hello", NULL};
+    char *args[] = {"./h", NULL};
     execv(args[0], args);
 
     //Not executed because the process control is in hello.c now and
