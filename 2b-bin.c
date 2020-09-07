@@ -22,26 +22,26 @@ int binarySearch(int arr[], int l, int r, int x)
     return -1;
 }
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
     int search_no, position, size, i;
-    int arr[5];
+    int arr[10];
 
-    printf("I am in a new process now!\n");
-    printf("Which number do you want to search from sorted array: ");
-    scanf("%d\n", &search_no);
-
-    for (i = 0; i < argc; i++)
+    for (i = 0; i < argc - 1; i++)
     {
-        arr[i] = atoi(argv[i]);
+        arr[i] = atoi(argv[i + 1]);
     }
-    printf("testing...");
-    printf("%d", arr[2]);
+
+    int n = sizeof(arr);
+    printf("I am in a new process within child!\n\n");
+    printf("Which number do you want to search from sorted array: ");
+    scanf("%d", &search_no);
+
     //call binary search
-    position = binarySearch(arr, 0, i, search_no);
+    position = binarySearch(arr, 0, n - 1, search_no);
 
     //print found number's position
-    if (position = -1)
+    if (position == -1)
     {
         printf("Number not found!\n");
     }

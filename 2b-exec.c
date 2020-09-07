@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <wait.h>
 
 #define max 5
 
@@ -44,7 +45,9 @@ int main()
     pid_t pid;
     int a[5], b[5], i, temp, j;
     int option;
-    char buffer[200];
+    char buffer_str[10];
+    char *child_name = "./b";
+    char *args[20];
 
     //Accepting input of unsorted numbers:
     printf("Enter any 5 numbers:\n");
@@ -82,21 +85,29 @@ int main()
 
         //Recieved sorted array
         //call exec to search using binary program
-        for (i = 0; i < 5; i++)
+
+        printf("Child's PID is : %d", getpid());
+        printf("Child's Parent ID is : %d", getppid());
+
+        args[0] = child_name;
+        for (i = 0; i < max; i++)
         {
-            sprintf(buffer, "%d", a[i]);
+            sprintf(buffer_str, "%d", a[i]);
+            args[i + 1] = malloc(strlen(buffer_str));
+            strcpy(args[i + 1], buffer_str);
         }
 
-        char *args[] = {"buffer[0]", "buffer[1]", "buffer[2]", "buffer[3]", "buffer[4]", NULL};
-        execv("./b", args);
+        args[max + 1] = NULL;
+        execv(args[0], args);
 
         break;
+
     default:
-        system("wait");
-        printf("IN PARENT\n");
 
-        sleep(10);
+        wait(NULL);
 
+        printf("\nBACK IN PARENT:\n");
+        printf("Parent's PID is : %d\n", getpid());
         break;
     }
 }
