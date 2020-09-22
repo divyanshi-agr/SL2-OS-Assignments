@@ -6,8 +6,8 @@
 
 void *thread_function(void *arg);
 int run_now = 1;
-char message[] = "Hello World";
-int main()
+0 /
+    int main()
 {
     int res;
 

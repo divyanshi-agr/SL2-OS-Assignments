@@ -81,14 +81,12 @@ int main()
         perror("fork failed");
         exit(1);
     case 0:
-        printf("IN CHILD:");
+        printf("IN CHILD:\n");
 
         //Recieved sorted array
         //call exec to search using binary program
 
-        printf("Child's PID is : %d", getpid());
-        printf("Child's Parent ID is : %d", getppid());
-
+        
         args[0] = child_name;
         for (i = 0; i < max; i++)
         {
