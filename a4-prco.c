@@ -18,28 +18,24 @@ void *producer(void *arg)
 
     while (1)
     {
-        // sleep(1);
-        printf("Enter no. to insert in buffer: ");
-        scanf("%d", &item);
+        sleep(1);
 
         sem_wait(&empty);
         sem_wait(&mutex);
-        buffer[in] = item;
-        //printf("Produced and inserted element is: %d\n", item);
-        in++;
 
+        item = rand() % 10;
+        buffer[in] = item;
+        in = (in + 1) % N;
+        printf("Produced element: %d\n", item);
         for (int i = 0; i < N; i++)
         {
-
             if (buffer[i])
-                printf("%d", buffer[i]);
+                printf("%d\t", buffer[i]);
         }
         printf("\n");
 
         sem_post(&mutex);
         sem_post(&full);
-
-        sleep(5);
     }
 
     pthread_exit(NULL);
@@ -51,26 +47,24 @@ void *consumer(void *arg)
 
     while (1)
     {
-        // sleep(7);
+        sleep(5);
         sem_wait(&full);
         sem_wait(&mutex);
+
         x = buffer[out];
-        printf("Consumed element is: %d\n", x);
 
         buffer[out] = 0;
-        out++;
-
+        out = (out + 1) % N;
+        printf("\nConsumed element: %d\n\n", x);
         for (int i = 0; i < N; i++)
         {
-
             if (buffer[i])
-                printf("%d", buffer[i]);
+                printf("%d\t", buffer[i]);
         }
         printf("\n");
 
         sem_post(&mutex);
         sem_post(&empty);
-        sleep(5);
     }
 
     pthread_exit(NULL);
