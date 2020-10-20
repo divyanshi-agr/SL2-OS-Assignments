@@ -19,10 +19,11 @@ void *reader()
     }
 
     sem_post(&mutex);
-    printf("Reader %d entered.\n", rc);
+    printf("Reader %d entered\n", rc);
 
     //readers going out of crit section
     sem_wait(&mutex);
+    printf("Reader %d leaving\n", rc);
     rc--;
     if (rc == 0)
         sem_post(&wrt);
@@ -33,28 +34,30 @@ void *reader()
 void *writer()
 {
     sem_wait(&wrt);
-    printf("Writer has entered\n");
-    sem_post(&y);
-    printf("Writer is leaving\n");
+    printf("Writer entered\n");
+    sem_post(&mutex);
+    printf("Writer leaving\n");
 }
 
 int main()
 {
-    int n2, i;
+    int r, i;
     printf("Enter the number of readers:");
-    scanf("%d", &n2);
+    scanf("%d", &r);
     printf("\n");
-    int n1[n2];
-    sem_init(&x, 0, 1);
-    sem_init(&y, 0, 1);
-    for (i = 0; i < n2; i++)
+
+    sem_init(&mutex, 0, 1);
+    sem_init(&wrt, 0, 1);
+
+    for (i = 0; i < r; i++)
     {
-        pthread_create(&writerthreads[i], NULL, reader, NULL);
-        pthread_create(&readerthreads[i], NULL, writer, NULL);
+        pthread_create(&reader, NULL, reader, NULL);
+        pthread_create(&writer, NULL, writer, NULL);
     }
-    for (i = 0; i < n2; i++)
+
+    for (i = 0; i < r; i++)
     {
-        pthread_join(writerthreads[i], NULL);
-        pthread_join(readerthreads[i], NULL);
+        pthread_join(writer, NULL);
+        pthread_join(reader, NULL);
     }
 }
