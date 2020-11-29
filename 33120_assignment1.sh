@@ -118,7 +118,6 @@ display_file () {
     echo "3.Total students"
     read choice
 
-    dept=$2
 
     if [ $choice -le 0 || $choice -gt 4 ]
     then echo "Please enter valid option!"
